@@ -13,6 +13,7 @@ stages:
 apply-dev:
   stage: apply
   script:
+    - apt install docker.io
     - echo "Updating Infra"
     - printenv PULUMI_ACCESS_TOKEN
     - cd infra
