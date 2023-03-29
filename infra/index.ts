@@ -8,6 +8,7 @@ const project = pulumi.getProject();
 
 const pichinchaConfig = new pulumi.Config("pichincha");
 const hostname = pichinchaConfig.require('hostname');
+const secret = pichinchaConfig.require('secret');
 
 
 const listener = new awsx.elasticloadbalancingv2.NetworkListener("pichincha-api-" + stack, { port: 5000 });
@@ -20,6 +21,12 @@ const service = new awsx.ecs.FargateService("pichincha-api-" + stack, {
                 image: awsx.ecs.Image.fromPath("pichincha-api-" + stack, "../"),
                 memory: 512,
                 portMappings: [listener],
+                environment: [
+                    {
+                        name: "SECRET_JWT",
+                        value: secret
+                    }
+                ]
             },
         },
     },

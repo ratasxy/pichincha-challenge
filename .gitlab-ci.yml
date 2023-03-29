@@ -6,6 +6,7 @@ image:
     - 'AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}'
     - 'AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}'
     - 'PULUMI_ACCESS_TOKEN=${PULUMI_ACCESS_TOKEN}'
+    - 'SECRET_JWT=${SECRET_JWT}'
 
 stages:
   - apply
@@ -19,6 +20,7 @@ apply-dev:
     - yarn install
     - pulumi plugin install resource aws v5.9.1
     - pulumi stack select dev -c
+    - pulumi config set --secret pichincha:secret ${SECRET_JWT}
     - pulumi up --yes
     - export URL=$(pulumi stack output url)
     - curl -X GET $URL
@@ -34,6 +36,7 @@ apply-prd:
     - yarn install
     - pulumi plugin install resource aws v5.9.1
     - pulumi stack select prd -c
+    - pulumi config set --secret pichincha:secret ${SECRET_JWT}
     - pulumi up --yes
     - export URL=$(pulumi stack output url)
     - curl -X GET $URL

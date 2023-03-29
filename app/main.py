@@ -1,7 +1,10 @@
 from flask import Flask, request
+import jwt
 import os
 
 app = Flask(__name__)
+app.debug = True
+secret = os.environ['SECRET_JWT']
 
 
 @app.route('/')
@@ -11,6 +14,11 @@ def home():
 
 @app.route('/DevOps', methods=['POST'])
 def devops():
+    try:
+        token = request.headers['X-JWT-KWY']
+        ans = jwt.decode(token, secret, algorithms=["HS256"])
+    except:
+        return {"status": "ERROR Token Invalid"}, 403
     content = request.json
     template = "Hello {} your message will be send"
     response = {"message": template.format(content['to'])}

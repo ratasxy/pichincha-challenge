@@ -1,4 +1,5 @@
 config:
   aws:region: us-east-1
   pichincha:hostname: "http://pichincha-api-dev-c2b89e9-a4bcb019bb2b970f.elb.us-east-1.amazonaws.com:5000"
-  
+  pichincha:secret:
+    secure: AAABAGnQWsHPBmH10pd0hMxYOHGPwtri2ftoCNGVK2VykYPefdKp1AHrydo3qWdOQxjq51oBrm0bDr/UsKThZdoajGc=
