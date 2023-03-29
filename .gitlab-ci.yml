@@ -7,18 +7,18 @@ image:
     - 'AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}'
     - 'PULUMI_ACCESS_TOKEN=${PULUMI_ACCESS_TOKEN}'
 
-variables:
-  ENVIRON: 'dev'
-
 stages:
   - apply
 
-apply:
+apply-dev:
   stage: apply
   script:
     - echo "Updating Infra"
     - printenv PULUMI_ACCESS_TOKEN
-    - cd infra && yarn install
+    - cd infra
+    - yarn install
     - pulumi plugin install resource aws v5.9.1
-    - pulumi stack select ${ENVIRON} -c --cwd infra
-    - pulumi up --yes --cwd infra
+    - pulumi stack select dev -c
+    - pulumi up --yes
+  except:
+    - master
