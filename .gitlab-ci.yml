@@ -1,0 +1,24 @@
+image:
+  name: pulumi/pulumi:latest
+  entrypoint:
+    - '/usr/bin/env'
+    - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    - 'AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}'
+    - 'AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}'
+    - 'PULUMI_ACCESS_TOKEN=${PULUMI_ACCESS_TOKEN}'
+
+stages:
+  - apply
+
+apply-dev:
+  stage: apply
+  script:
+    - echo "Updating Infra"
+    - printenv PULUMI_ACCESS_TOKEN
+    - cd infra
+    - yarn install
+    - pulumi plugin install resource aws v5.9.1
+    - pulumi stack select dev -c
+    - pulumi up --yes
+  except:
+    - master
