@@ -1,5 +1,5 @@
 image:
-  name: pulumi/pulumi:latest
+  name: pulumi/pulumi-nodejs:latest
   entrypoint:
     - '/usr/bin/env'
     - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
@@ -13,7 +13,6 @@ stages:
 apply-dev:
   stage: apply
   script:
-    - apt install -y docker.io
     - echo "Updating Infra"
     - printenv PULUMI_ACCESS_TOKEN
     - cd infra

@@ -17,7 +17,8 @@ const service = new awsx.ecs.FargateService("pichincha-api-" + stack, {
     taskDefinitionArgs: {
         containers: {
             pichinchaApp: {
-                image: awsx.ecs.Image.fromPath("pichincha-api-" + stack, "../"),
+                //image: awsx.ecs.Image.fromPath("pichincha-api-" + stack, "../"), Just if the runner have docker
+                image: '773686371801.dkr.ecr.us-east-1.amazonaws.com/pichincha-api-dev-b4d5e84:49d200300bae281001fa08a786dac48903d186fd3da6826460b891c5d39ba020',
                 memory: 512,
                 portMappings: [listener],
             },
