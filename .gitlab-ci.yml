@@ -1,5 +1,5 @@
 image:
-  name: pulumi/pulumi-nodejs:latest
+  name: pulumi/pulumi:latest
   entrypoint:
     - '/usr/bin/env'
     - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
